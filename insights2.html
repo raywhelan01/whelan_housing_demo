@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+    <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <link rel="stylesheet" href="static/css/style2.css">
+</head>
+<body class="body">
+    <body>
+        <div>
+            <nav class="navbar navbar-dark bg-dark">
+                <ul>
+                    <li><a class="navbar-brand" href="index.html">
+                        <img src="static/images/cartoon-guy.png" width="40" height="55">
+                        Your Moving Buddy
+                    </a>
+                    <li><a class="navbar-brand" href="insights2.html">
+                        <img src="static/images/cartoon-house2.jpg" width="57" height="48">
+                        Housing Buddy Insights
+                    </a>
+                </ul>
+            </nav>
+        </div>
+        <div class="background">
+            <h1 style="font-size:50px;line-height: 2.0;font-weight: 700;color: rgb(246, 244, 248);text-shadow: 1px 4px rgba(58, 108, 216);">Things change.</h1>
+            <p></p>
+            <p style="font-size:42px;line-height: 2.0;font-weight: 600;text-shadow: 1px 4px rgb(58, 108, 216);color: rgb(31, 12, 100);">Let's see how that affects home values!</p>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5 href="#">
+                        <img src="static/images/Robot.jpeg" width="320" height="225" class="align-baseline" alt="">
+                    </h5>
+                </div>
+                <div class="col-md-9">
+                    <p style="font-size:21px; color:rgb(68, 67, 67);">Have you heard of a new apartment complex going in or has the job market seen an increase in jobs? 
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <form class="bg-dark">
+                        <h5 align="center">Your Housing Buddy Details</h5>
+                        <ul class="list-group bg-dark">
+                            <li class="list-group-item bg-dark">
+                                <label for="date">Enter County FIPS</label>
+                                <input type="object" placeholder="06081" id="fips"/>
+                            </li>
+                            <li class="slidecontainer">
+                                <label for="occup">% Housing Units Occupied</label>
+                                <input type="range" min="-10" max="10" value="10" class="slider" id="occup">
+                                <p>Value: <span id="occupOut"></span>%</p>
+                            <li class="slidecontainer">
+                                <label for="unemp">% Unemployment Rate</label>
+                                <input type="range" min="-10" max="10" value="0" class="slider" id="unemp">
+                                <p>Value: <span id="unempOut"></span>%</p>
+                            <li class="slidecontainer">
+                                <label for="inState">% Born in State</label>
+                                <input type="range" min="-10" max="10" value="0" class="slider" id="inState">
+                                <p>Value: <span id="inStateOut"></span>%</p>                                
+                            <li class="slidecontainer">
+                                <label for="medInc">Median Income</label>
+                                <input type="range" min="-10" max="10" value="0" class="slider" id="medInc">
+                                <p>Value: <span id="medIncOut"></span>%</p>
+                            </li>
+                            <li class="list-group-item bg-dark">
+                                <button id="predict-btn" type="button" class="btn btn-light">
+                                    Predict
+                                </button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <div class="container-fluid; col-md-9">
+                    <table class='bg-dark' >
+                            <thead>
+                                <tr class="bg-dark">
+                                    <th><small><b>County</b></small></th>
+                                    <th><small><b>% Housing Units Occupied</b></small></th>
+                                    <th><small><b>% Unemployment Rate</b></small></th>
+                                    <th><small><b>% Born in State</b></small></th>
+                                    <th><small><b>Median Income</b></small></th>
+                                    <th><small><b>Median Home Value</b></small></th>
+<!--                                    <th><small><b>% High School & Professional Diploma</b></small></th>
+                                    <th><small><b>% Bachelors and Above</b></small></th>
+                                    <th><small><b>% Working in Business Science & Arts</b></small></th>
+                                    <th><small><b>% Working in Service Industry</b></small></th>
+                                    <th><small><b>% Working in Sales Industry</b></small></th>
+                                    <th><small><b>% Working in Construct. & Maintenance</b></small></th>
+                                    <th><small><b>% Working in Tranportation and Moving</b></small></th>
+-->                                   
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            </table>
+                        </div>   
+            </div>
+        </div>
+        <!-- The div that holds our map -->
+        <div id="mapid"></div>
+        <!-- leaflet Java Script -->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>   
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script> -->
+        <!-- API key -->
+        <script type="text/javascript" src="js/config.js"></script>
+        <script src="js/regress.js"></script>
+        <script src="js/choro.js"></script>
+</body> 
+</html>

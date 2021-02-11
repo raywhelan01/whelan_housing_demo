@@ -1,0 +1,52 @@
+body {
+  color: #f7f7f7;
+}
+
+.jumbotron {
+  background-size: auto, contain;
+  background-image: 
+      url("../images/Family.jpg"),
+      url("../images/Change-sign.jpg");
+  background-position:
+      left, /* this positions the first image */
+      right; /* this positions the second image */
+  background-repeat:
+      no-repeat; /* this applies to both images */
+}
+
+.navbar{
+  height: 75px;
+}
+
+ul {
+
+}
+
+ul li {
+  list-style: none;
+  display: inline-block;
+  float: left;
+}
+
+ul li a {
+  display: block;
+  text-decoration: none;
+  font-size: 12px;
+  padding: 0 20px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #2f50e2;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #2892da;
+}
