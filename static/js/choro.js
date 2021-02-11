@@ -83,7 +83,8 @@ function onEachFeature(feature, layer) {
         // define the popup content
         let content = `<div>County Name: ${feature.properties.name}</div>
                        <div>Median Home Value: ${formattedValue}</div>
-                       <div>Decile: ${feature.properties.decile}</div>`
+                       <div>Decile: ${feature.properties.decile}</div>
+                       <div>FIPS Code: ${feature.id}</div>`
 
         // bind the popup to the layer
         layer.bindPopup(content);
