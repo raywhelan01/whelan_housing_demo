@@ -28,6 +28,13 @@ def index():
         default.index.name=None
         default = default.rename(columns={"% Housing Units Occupied": "Housing Unit Occupancy Rate", "% Unemployment Rate": "Unemployment Rate", "% Born in State": "Native to State Residency Rate"})
 
+        default["Housing Unit Occupancy Rate"] = default["Housing Unit Occupancy Rate"].to_string(float_format ='{:,.2%}'.format, index = False)
+        default["Unemployment Rate"] = default["Unemployment Rate"].to_string(float_format ='{:,.2%}'.format, index = False)
+        default["Native to State Residency Rate"] = default["Native to State Residency Rate"].to_string(float_format ='{:,.2%}'.format, index = False)
+        default["Median Income"] = default["Median Income"].to_string(float_format ='${:,.2f}'.format, index = False)
+        default["Median Home Value"] = default["Median Home Value"].to_string(float_format ='${:,.2f}'.format, index = False)
+
+
 
         print(default, file=sys.stderr)
 
@@ -75,11 +82,26 @@ def index():
         real.set_index(['NAME'], inplace=True)
         real.index.name=None
         real = real.rename(columns={"% Housing Units Occupied": "Housing Unit Occupancy Rate", "% Unemployment Rate": "Unemployment Rate", "% Born in State": "Native to State Residency Rate"})
+        
+        real["Housing Unit Occupancy Rate"] = real["Housing Unit Occupancy Rate"].to_string(float_format ='{:,.2%}'.format, index = False)
+        real["Unemployment Rate"] = real["Unemployment Rate"].to_string(float_format ='{:,.2%}'.format, index = False)
+        real["Native to State Residency Rate"] = real["Native to State Residency Rate"].to_string(float_format ='{:,.2%}'.format, index = False)
+        real["Median Income"] = real["Median Income"].to_string(float_format ='${:,.2f}'.format, index = False)
+        real["Median Home Value"] = real["Median Home Value"].to_string(float_format ='${:,.2f}'.format, index = False)
+        
+        
+        print(real, file=sys.stderr)
 
         hypo = hypo[["NAME", "% Housing Units Occupied", "% Unemployment Rate", "% Born in State", "Median Income", "Median Home Value"]]
         hypo.set_index(['NAME'], inplace=True)
         hypo.index.name=None
         hypo = hypo.rename(columns={"% Housing Units Occupied": "Housing Unit Occupancy Rate", "% Unemployment Rate": "Unemployment Rate", "% Born in State": "Native to State Residency Rate"})
+
+        hypo["Housing Unit Occupancy Rate"] = hypo["Housing Unit Occupancy Rate"].to_string(float_format ='{:,.2%}'.format, index = False)
+        hypo["Unemployment Rate"] = hypo["Unemployment Rate"].to_string(float_format ='{:,.2%}'.format, index = False)
+        hypo["Native to State Residency Rate"] = hypo["Native to State Residency Rate"].to_string(float_format ='{:,.2%}'.format, index = False)
+        hypo["Median Income"] = hypo["Median Income"].to_string(float_format ='${:,.2f}'.format, index = False)
+        hypo["Median Home Value"] = hypo["Median Home Value"].to_string(float_format ='${:,.2f}'.format, index = False)
 
 
         return render_template('index.html', tables = [real.to_html(classes='bg-dark'), hypo.to_html(classes='bg-dark')], titles = ['na', "Real Values", "Hypothetical Values"])
