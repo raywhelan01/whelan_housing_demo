@@ -26,6 +26,8 @@ def index():
         default = default[["NAME", "% Housing Units Occupied", "% Unemployment Rate", "% Born in State", "Median Income", "Median Home Value"]]
         default.set_index(['NAME'], inplace=True)
         default.index.name=None
+        default = default.rename(columns={"% Housing Units Occupied": "Housing Unit Occupancy Rate", "% Unemployment Rate": "Unemployment Rate", "% Born in State": "Native to State Residency Rate"})
+
 
         print(default, file=sys.stderr)
 
@@ -72,10 +74,13 @@ def index():
         real = real[["NAME", "% Housing Units Occupied", "% Unemployment Rate", "% Born in State", "Median Income", "Median Home Value"]]
         real.set_index(['NAME'], inplace=True)
         real.index.name=None
+        real = real.rename(columns={"% Housing Units Occupied": "Housing Unit Occupancy Rate", "% Unemployment Rate": "Unemployment Rate", "% Born in State": "Native to State Residency Rate"})
 
         hypo = hypo[["NAME", "% Housing Units Occupied", "% Unemployment Rate", "% Born in State", "Median Income", "Median Home Value"]]
         hypo.set_index(['NAME'], inplace=True)
         hypo.index.name=None
+        hypo = hypo.rename(columns={"% Housing Units Occupied": "Housing Unit Occupancy Rate", "% Unemployment Rate": "Unemployment Rate", "% Born in State": "Native to State Residency Rate"})
+
 
         return render_template('index.html', tables = [real.to_html(classes='bg-dark'), hypo.to_html(classes='bg-dark')], titles = ['na', "Real Values", "Hypothetical Values"])
 
